@@ -1,0 +1,27 @@
+# Diretórios e arquivos do Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Diretórios de builds e logs
+dist/
+build/
+logs/
+*.log
+
+# Arquivos de ambiente
+.env
+
+# Sistemas de IDE e editores de texto
+.vscode/
+.idea/
+.DS_Store
+
+# Test coverage
+coverage/
+
+# Temp directories
+tmp/
+temp/
