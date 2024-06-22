@@ -1,6 +1,7 @@
-import { Logger } from "@nestjs/common";
+import { Logger, UseGuards } from "@nestjs/common";
 import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server, Socket } from 'socket.io';
+import { AuthGuardWs } from "src/application/guards/auth.guard";
 import { ChatService } from "src/application/services/chat.service";
 
 @WebSocketGateway({
@@ -24,12 +25,14 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
         this.chatService.setServer(server);
     }
 
+    @UseGuards(AuthGuardWs)
     handleConnection(client: Socket): void {
         this.logger.log('Cliente conectado no webSocket:', client.id);
         this.chatService.addUser();
         this.server.emit('user', this.chatService.getUserCount());
     }
 
+    @UseGuards(AuthGuardWs)
     handleDisconnect(client: Socket): void {
         this.logger.log('Cliente desconectado no webSocket:', client.id);
         this.chatService.removeUser();
@@ -37,7 +40,9 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     }
 
     @SubscribeMessage('message')
-    handleMessage(client: Socket, payload: { sender: string; message: string }): void {
-        this.chatService.sendMessage(payload.sender, payload.message);
+    @UseGuards(AuthGuardWs)
+    handleMessage(client: Socket, payload: { message: string }): void {
+        const user = client['user'];
+        this.chatService.sendMessage(user.username, payload.message);
     }
 }
