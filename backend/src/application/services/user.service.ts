@@ -18,7 +18,11 @@ export class UserService {
         return this.userRepository.save(user);
     }
 
-    async findByUsername(username: string): Promise<User | undefined> {
+    async fetchByUsername(username: string): Promise<User | undefined> {
         return this.userRepository.findOne({ where: { username } });
+    }
+
+    async fetchIdUsername(id: number): Promise<User | undefined> {
+        return this.userRepository.findOne({ where: { id: id } });
     }
 }

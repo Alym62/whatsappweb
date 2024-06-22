@@ -1,4 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Conversation } from "./conversation.entity";
 import { Message } from "./message.entity";
 
 @Entity()
@@ -14,4 +15,7 @@ export class User {
 
     @OneToMany(() => Message, (message) => message.sender)
     messages: Message[];
+
+    @ManyToMany(() => Conversation, (conversation) => conversation.participants)
+    conversations: Conversation[];
 }

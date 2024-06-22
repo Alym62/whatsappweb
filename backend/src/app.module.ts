@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Conversation } from './domain/entity/conversation.entity';
 import { Message } from './domain/entity/message.entity';
 import { User } from './domain/entity/user.entity';
 import { AuthModule } from './infrastructure/auth.module';
@@ -21,7 +22,7 @@ import { ChatModule } from './infrastructure/chat.module';
         username: configService.get('DB_USERNAME', 'postgres'),
         password: configService.get('DB_PASSWORD', 'postgres'),
         database: configService.get('DB_DATABASE', 'websocket'),
-        entities: [User, Message],
+        entities: [User, Message, Conversation],
         synchronize: true
       }),
     }),

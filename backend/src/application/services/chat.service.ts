@@ -6,6 +6,8 @@ import { ChatAdapter } from "src/adapters/use-cases/chat.adapter";
 import { Message } from "src/domain/entity/message.entity";
 import { User } from "src/domain/entity/user.entity";
 import { Repository } from "typeorm";
+import { ConversationService } from "./conversation.service";
+import { MessageService } from "./message.service";
 
 @Injectable()
 export class ChatService {
@@ -15,8 +17,8 @@ export class ChatService {
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
-        @InjectRepository(Message)
-        private readonly messageRepository: Repository<Message>,
+        private readonly messageService: MessageService,
+        private readonly conversationService: ConversationService,
     ) { }
 
     setServer(server: Server): void {
@@ -35,18 +37,26 @@ export class ChatService {
         return this.users;
     }
 
-    async sendMessage(senderUsername: string, messageContent: string): Promise<void> {
+    async sendMessage(senderUsername: string, conversationId: number, messageContent: string): Promise<void> {
         const sender = await this.userRepository.findOne({ where: { username: senderUsername } });
+        const conversation = await this.conversationService.fetchIdConversation(conversationId);
 
         if (sender) {
             const message = new Message();
             message.sender = sender;
             message.content = messageContent;
             message.timestamp = new Date();
+            message.conversation = conversation
 
-            await this.messageRepository.save(message);
+            await this.messageService.create(message);
 
             this.chatAdapter.sendMessage(sender.username, message.content);
+        } else {
+            throw new Error('Usuário não encontrado!');
         }
+    }
+
+    async getMessages(conversationId: number): Promise<Message[]> {
+        return this.messageService.fetchAllByConversation(conversationId);
     }
 }

@@ -22,7 +22,7 @@ export class AuthGuardWs implements CanActivate {
     private async decodeUser(token: any, client: Socket): Promise<boolean> {
         try {
             const decoded = this.jwtService.verify(token, {
-                secret: 'secret_key',
+                secret: 'W+jX#P9o2}40%#J#7e[qGZ)Ps1g6A5@>PVSoDIH+ls87zrd(Z$',
             });
             client['user'] = decoded;
 

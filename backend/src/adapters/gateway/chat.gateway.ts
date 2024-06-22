@@ -3,6 +3,8 @@ import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessa
 import { Server, Socket } from 'socket.io';
 import { AuthGuardWs } from "src/application/guards/auth.guard";
 import { ChatService } from "src/application/services/chat.service";
+import { ConversationService } from "src/application/services/conversation.service";
+import { UserService } from "src/application/services/user.service";
 
 @WebSocketGateway({
     cors: {
@@ -18,7 +20,11 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
         connectionStateRecovery: {}
     });
 
-    constructor(private readonly chatService: ChatService) { }
+    constructor(
+        private readonly chatService: ChatService,
+        private readonly userService: UserService,
+        private readonly conversationService: ConversationService,
+    ) { }
 
     afterInit(server: Server): void {
         this.logger.log('WebSocket inicializado...');
@@ -28,8 +34,13 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     @UseGuards(AuthGuardWs)
     handleConnection(client: Socket): void {
         this.logger.log('Cliente conectado no webSocket:', client.id);
+
         this.chatService.addUser();
         this.server.emit('user', this.chatService.getUserCount());
+
+        setTimeout(() => {
+            this.getConversation(client);
+        }, 2000);
     }
 
     @UseGuards(AuthGuardWs)
@@ -41,8 +52,39 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
     @SubscribeMessage('message')
     @UseGuards(AuthGuardWs)
-    handleMessage(client: Socket, payload: { message: string }): void {
+    handleMessage(client: Socket, payload: { conversationId: number; message: string }): void {
         const user = client['user'];
-        this.chatService.sendMessage(user.username, payload.message);
+        this.chatService.sendMessage(user.username, payload.conversationId, payload.message);
+    }
+
+    @SubscribeMessage('openConversation')
+    @UseGuards(AuthGuardWs)
+    async handleOpenConversation(client: Socket, participantsId: Array<number>): Promise<void> {
+        try {
+            if (!Array.isArray(participantsId)) throw new Error('participantsId não é um array');
+
+            const participants = await Promise.all(participantsId.map(id => this.userService.fetchIdUsername(id)));
+            const conversation = await this.conversationService.createConversation(participants);
+
+            client.emit('conversationOpened', conversation);
+        } catch (e) {
+            this.logger.error(`Erro ao tentar abrir conversa: ${e.message}`);
+            client.emit('error', `Erro ao abrir conversa: ${e.message}`);
+        }
+    }
+
+    private async getConversation(client: Socket): Promise<void> {
+        try {
+            const user = client['user'];
+
+            const conversations = await this.conversationService.fetchByUserId(user.sub);
+
+            for (const conversation of conversations) {
+                const messages = await this.chatService.getMessages(conversation.id);
+                client.emit('loadMessages', { conversationId: conversation.id, messages });
+            }
+        } catch (e) {
+            this.logger.error(`Erro ao carregar mensagens das conversas do usuário: ${e.message}`)
+        }
     }
 }
