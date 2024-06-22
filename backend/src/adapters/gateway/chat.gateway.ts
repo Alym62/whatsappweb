@@ -3,11 +3,19 @@ import { OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit, SubscribeMessa
 import { Server, Socket } from 'socket.io';
 import { ChatService } from "src/application/services/chat.service";
 
-@WebSocketGateway()
+@WebSocketGateway({
+    cors: {
+        origin: 'http://127.0.0.1:5500',
+        methods: ['GET', 'POST'],
+        credentials: true,
+    }
+})
 export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
     private logger: Logger = new Logger(ChatGateway.name);
 
-    @WebSocketServer() server: Server;
+    @WebSocketServer() server: Server = new Server({
+        connectionStateRecovery: {}
+    });
 
     constructor(private readonly chatService: ChatService) { }
 
@@ -17,13 +25,13 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
     }
 
     handleConnection(client: Socket): void {
-        this.logger.log('Cliente conectado no webSocket');
-        this.chatService.removeUser();
+        this.logger.log('Cliente conectado no webSocket:', client.id);
+        this.chatService.addUser();
         this.server.emit('user', this.chatService.getUserCount());
     }
 
     handleDisconnect(client: Socket): void {
-        this.logger.log('Cliente desconectado no webSocket');
+        this.logger.log('Cliente desconectado no webSocket:', client.id);
         this.chatService.removeUser();
         this.server.emit('user', this.chatService.getUserCount());
     }

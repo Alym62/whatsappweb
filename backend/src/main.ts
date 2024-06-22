@@ -1,14 +1,14 @@
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
-    origin: '*',
+    origin: 'http://127.0.0.1:5500', // Permitir a origem específica
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
   });
-
-  // const io = new IoAdapter(app);
-  // app.useWebSocketAdapter(io);
 
   await app.listen(3000);
 }
