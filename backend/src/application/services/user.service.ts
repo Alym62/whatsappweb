@@ -25,4 +25,12 @@ export class UserService {
     async fetchIdUsername(id: number): Promise<User | undefined> {
         return this.userRepository.findOne({ where: { id: id } });
     }
+
+    async fetchUsersByUsername(name: string, userId: number): Promise<User[]> {
+        return this.userRepository
+            .createQueryBuilder('user')
+            .where('user.username LIKE :name', { name: `%${name}%` })
+            .andWhere('user.id != :userId', { userId })
+            .getMany();
+    }
 }
