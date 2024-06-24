@@ -36,4 +36,13 @@ export class ConversationService {
             .where('user.id = :userId', { userId })
             .getMany();
     }
+
+    async fetchConversationByUserId(userId: number): Promise<Conversation[]> {
+        return this.conversationRepository
+            .createQueryBuilder('conversation')
+            .leftJoinAndSelect('conversation.participants', 'user')
+            .leftJoinAndSelect('conversation.participants', 'otherUser', 'otherUser.id != :userId', { userId })
+            .where('user.id = :userId', { userId })
+            .getMany();
+    }
 }

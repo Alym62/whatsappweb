@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegisterModel } from 'src/app/core/models/register.model';
+import { UserModel } from 'src/app/core/models/user.model';
 import { RegisterService } from 'src/app/core/services/register.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { RegisterService } from 'src/app/core/services/register.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  userModel: RegisterModel = {} as RegisterModel;
+  userModel: UserModel = {} as UserModel;
 
   constructor(
     private readonly registerService: RegisterService,

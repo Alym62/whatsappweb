@@ -12,11 +12,13 @@ import { RegisterService } from '../core/services/register.service';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
+    HomeComponent,
   ],
   providers: [AuthService, RegisterService],
   imports: [

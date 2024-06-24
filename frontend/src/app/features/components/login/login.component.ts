@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Credentials } from 'src/app/core/models/credentials.model';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -13,7 +14,8 @@ export class LoginComponent {
 
   constructor(
     private readonly authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router,
   ) { }
 
   private openSnackBar(): void {
@@ -26,6 +28,7 @@ export class LoginComponent {
   login(): void {
     this.authService.login(this.credentials).subscribe(() => {
       this.openSnackBar();
+      this.router.navigate(['/home']);
     });
   }
 }

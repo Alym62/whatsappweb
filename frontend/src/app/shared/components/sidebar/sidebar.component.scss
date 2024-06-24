@@ -1,0 +1,45 @@
+.example-container {
+    width: 15%;
+    height: 100%;
+    background-color: #128C7E;
+
+    .header {
+        h1 {
+            margin-top: 1rem;
+            color: #fff;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .625rem;
+        }
+    }
+
+    ul {
+        width: 80%;
+        height: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 1rem;
+            list-style: none;
+            width: 80%;
+            height: 5%;
+            border-radius: 4px;
+            font-weight: 400;
+            font-size: 1rem;
+            color: #FFF;
+            cursor: pointer;
+        }
+
+        li:hover {
+            background-color: #2CAB9D;
+        }
+    }
+
+}
