@@ -1,0 +1,15 @@
+mat-toolbar {
+    background-color: #00A884;
+    height: 10%;
+
+    mat-toolbar-row {
+        span {
+            color: #FFF;
+        }
+
+        mat-icon {
+            margin-left: .625rem;
+            color: #FFF;
+        }
+    }
+}

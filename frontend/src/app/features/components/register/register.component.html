@@ -1,0 +1,43 @@
+<app-header></app-header>
+<main>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div class="content-header">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque vitae facilis necessitatibus blanditiis
+                sint
+                reprehenderit cum quas! Ipsam adipisci omnis facere voluptas non, tenetur maiores consectetur, eum eius
+                incidunt veritatis.
+            </div>
+        </mat-card-header>
+        <div class="description-card">
+            <h1>Use o chat web para conversar com pessoas ao redor do mundo! Registre-se agora mesmo!</h1>
+            <ol>
+                <li>Coloque seu username para registar seu usuário no sistema.</li>
+                <li>Coloque sua senha para que você possa fazer login posteriormente.</li>
+                <li>Converse com as pessoas!</li>
+            </ol>
+        </div>
+        <mat-card-content>
+            <form (ngSubmit)="register()">
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" [(ngModel)]="userModel.username" name="username" required
+                        placeholder="Digite seu username...">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" [(ngModel)]="userModel.password" name="password" required
+                        placeholder="Digite sua senha...">
+                    <mat-icon matSuffix>https</mat-icon>
+                </mat-form-field>
+
+                <button mat-raised-button type="submit">Registrar</button>
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <a href="/">Faça seu login!</a>
+        </mat-card-actions>
+    </mat-card>
+</main>
