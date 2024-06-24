@@ -6,7 +6,7 @@ import { UserModel } from "../models/user.model";
 @Injectable({
     providedIn: 'root',
 })
-export class RegisterService {
+export class UserService {
     private readonly apiUrl = 'http://localhost:3000/';
 
     constructor(
@@ -15,5 +15,9 @@ export class RegisterService {
 
     register(user: UserModel): Observable<UserModel> {
         return this.http.post<UserModel>(`${this.apiUrl}api/v1/auth`, user);
+    }
+
+    fetchFilter(username: string): Observable<UserModel[]> {
+        return this.http.get<UserModel[]>(`${this.apiUrl}api/v1/user?name=${username}`);
     }
 }

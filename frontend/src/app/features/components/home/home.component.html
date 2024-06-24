@@ -1,1 +1,15 @@
-<app-sidebar></app-sidebar>
+<main>
+    <app-sidebar />
+    <div class="filter">
+        <mat-form-field appearance="outline">
+            <mat-label>Buscar por usuários no chat</mat-label>
+            <input matInput [formControl]="filterControl" [matAutocomplete]="auto">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let user of users" [value]="user.username">
+                    {{ user.username }}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+</main>

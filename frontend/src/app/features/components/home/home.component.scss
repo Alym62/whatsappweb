@@ -1,0 +1,18 @@
+main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .filter {
+        width: 100%;
+        height: 15%;
+        border: 1px solid #bebebe;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        mat-form-field {
+            width: 60%;
+        }
+    }
+}

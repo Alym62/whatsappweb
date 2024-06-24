@@ -5,11 +5,21 @@
             <mat-icon>chat</mat-icon>
         </h1>
     </div>
-    <hr>
     <ul>
         <li *ngFor="let user of usernameStr">
             <mat-icon>person</mat-icon>
             {{ user.username }}
         </li>
     </ul>
+    <div class="pop-up">
+        <div class="card">
+            <h3>Atualizar chat</h3>
+            <h2>
+                Chat web
+                <mat-icon>chat</mat-icon>
+            </h2>
+            <span>Uma nova avaliação foi lançada!</span>
+            <button>Atualizar</button>
+        </div>
+    </div>
 </mat-drawer-container>

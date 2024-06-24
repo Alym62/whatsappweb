@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserModel } from 'src/app/core/models/user.model';
-import { RegisterService } from 'src/app/core/services/register.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -11,10 +11,10 @@ export class RegisterComponent {
   userModel: UserModel = {} as UserModel;
 
   constructor(
-    private readonly registerService: RegisterService,
+    private readonly userService: UserService,
   ) { }
 
   register(): void {
-    this.registerService.register(this.userModel).subscribe(() => console.log('registro feito com sucesso, credenciais:', this.userModel));
+    this.userService.register(this.userModel).subscribe(() => console.log('registro feito com sucesso, credenciais:', this.userModel));
   }
 }
