@@ -11,5 +11,8 @@
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
+        <button mat-fab matTooltip="Ver perfil" id="profile-button" (click)="openDialog('200ms', '100ms')">
+            {{ profile.username.charAt(0).toUpperCase() }}
+        </button>
     </div>
 </main>

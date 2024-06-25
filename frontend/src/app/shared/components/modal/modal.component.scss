@@ -1,24 +1,24 @@
 main {
-    width: 100%;
-    height: 100%;
-    display: flex;
-
-    .filter {
-        width: 100%;
-        height: 15%;
-        border: 1px solid #bebebe;
+    #modal {
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        gap: .625rem;
 
-        mat-form-field {
-            margin-left: 25rem;
-            width: 60%;
+        h1 {
+            font-weight: 800;
         }
 
-        #profile-button {
-            margin-bottom: 1.625rem;
-            margin-right: 5rem;
+        span {
+            font-weight: 400;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
             background-image: linear-gradient(65deg,
                     hsl(173deg 93% 17%) 0%,
                     hsl(173deg 86% 19%) 21%,

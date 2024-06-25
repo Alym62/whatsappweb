@@ -1,0 +1,14 @@
+<main>
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">
+            <mat-icon>clear</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-content id="modal">
+        <button mat-fab matTooltip="Ver perfil" id="profile-button">
+            {{ data.username.charAt(0).toUpperCase() }}
+        </button>
+        <h1>{{ data.username }}</h1>
+        <span>+55 (61)7777-8888</span>
+    </div>
+</main>

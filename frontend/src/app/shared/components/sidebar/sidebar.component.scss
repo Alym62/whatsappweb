@@ -1,7 +1,17 @@
 .example-container {
     width: 15%;
     height: 100%;
-    background-color: #128C7E;
+    background-image: linear-gradient(65deg,
+            hsl(173deg 93% 17%) 0%,
+            hsl(173deg 86% 19%) 21%,
+            hsl(173deg 83% 21%) 30%,
+            hsl(173deg 82% 23%) 39%,
+            hsl(173deg 80% 24%) 46%,
+            hsl(173deg 79% 26%) 54%,
+            hsl(173deg 79% 27%) 61%,
+            hsl(173deg 78% 28%) 69%,
+            hsl(173deg 78% 30%) 79%,
+            hsl(173deg 77% 31%) 100%);
     box-shadow: 5px 0px 15px 12px rgba(0, 0, 0, 0.4);
     border-radius: 4px;
     position: absolute;

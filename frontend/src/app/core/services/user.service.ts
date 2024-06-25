@@ -20,4 +20,8 @@ export class UserService {
     fetchFilter(username: string): Observable<UserModel[]> {
         return this.http.get<UserModel[]>(`${this.apiUrl}api/v1/user?name=${username}`);
     }
+
+    fetchProfile(): Observable<UserModel> {
+        return this.http.get<UserModel>(`${this.apiUrl}api/v1/user/profile`);
+    }
 }

@@ -15,8 +15,12 @@ export class UserController {
     @UseGuards(AuthGuard('jwt'))
     async fetchUsers(@Query('name') name: string, @Req() req): Promise<User[]> {
         if (!name) return [];
-
-        this.logger.warn(req.user.userId);
         return await this.userService.fetchUsersByUsername(name, req.user.userId);
+    }
+
+    @Get('profile')
+    @UseGuards(AuthGuard('jwt'))
+    async fetchUserById(@Req() req): Promise<User | undefined> {
+        return await this.userService.fetchIdUsername(req.user.userId);
     }
 }
