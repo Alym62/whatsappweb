@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Server } from 'socket.io';
 import { SocketIo } from "src/adapters/implementations/chat.socket-io";
-import { ChatAdapter } from "src/adapters/use-cases/chat.adapter";
+import { ChatAdapter } from "src/adapters/use-cases/socket/chat.adapter";
 import { Message } from "src/domain/entity/message.entity";
 import { User } from "src/domain/entity/user.entity";
 import { Repository } from "typeorm";

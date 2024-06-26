@@ -50,7 +50,8 @@ import { RegisterComponent } from './components/register/register.component';
     MatDialogModule,
     MatProgressSpinnerModule,
     MatListModule,
-    PickerModule
+    PickerModule,
+
   ],
   exports: [LoginComponent]
 })

@@ -8,7 +8,7 @@ import { UserService } from "src/application/services/user.service";
 
 @WebSocketGateway({
     cors: {
-        origin: ['http://localhost:4200', 'http://127.0.0.1:5501'],
+        origin: ['http://localhost:4200'],
         methods: ['GET', 'POST'],
         credentials: true,
     }
@@ -37,10 +37,6 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
 
         this.chatService.addUser();
         this.server.emit('user', this.chatService.getUserCount());
-
-        // setTimeout(() => {
-        //     this.getConversation(client);
-        // }, 10000);
     }
 
     @UseGuards(AuthGuardWs)
@@ -84,19 +80,4 @@ export class ChatGateway implements OnGatewayInit, OnGatewayConnection, OnGatewa
             client.emit('error', `Erro ao carregas as mensagens: ${e.message}`);
         }
     }
-
-    // private async getConversation(client: Socket): Promise<void> {
-    //     try {
-    //         const user = client['user'];
-
-    //         const conversations = await this.conversationService.fetchConversationWithMessages(user.sub);
-
-    //         for (const conversation of conversations) {
-    //             const messages = await this.chatService.getMessages(conversation.id);
-    //             client.emit('loadMessages', { conversationId: conversation.id, messages });
-    //         }
-    //     } catch (e) {
-    //         this.logger.error(`Erro ao carregar mensagens das conversas do usuário: ${e.message}`)
-    //     }
-    // }
 }
