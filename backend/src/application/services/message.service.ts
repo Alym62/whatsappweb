@@ -20,4 +20,12 @@ export class MessageService {
             relations: ['sender', 'conversation'],
         });
     }
+
+    async getMessagesByConversationId(conversationId: number): Promise<Message[]> {
+        return this.messageRepository.find({
+            where: { conversation: { id: conversationId } },
+            order: { timestamp: 'ASC' },
+            relations: ['sender']
+        });
+    }
 }

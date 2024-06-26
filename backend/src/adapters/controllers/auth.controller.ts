@@ -18,9 +18,4 @@ export class AuthController {
 
         return { status: 401, message: 'Não autorizado!' };
     }
-
-    @Post()
-    async register(@Body() user: User): Promise<User> {
-        return this.userService.registerUser(user);
-    }
 }

@@ -1,0 +1,46 @@
+<main>
+    <mat-toolbar id="Toolbar">
+        <mat-toolbar-row>
+            <div class="tool-right">
+                <span>Usuários conectados nessa conversa: {{ userCount }}</span>
+                <mat-icon>person</mat-icon>
+            </div>
+            <div class="tool-left">
+                <button mat-button (click)="goToHome()">Sair</button>
+                <mat-icon>logout</mat-icon>
+            </div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div id="messages" #messagesContainer>
+        <mat-list>
+            <div *ngFor="let msg of messages" class="message-wrapper">
+                <div *ngIf="msg.sender === username" class="message-content sent">
+                    <span>{{ msg.sender }}: {{ msg.message }}</span>
+                </div>
+                <div *ngIf="msg.sender !== username" class="message-content received">
+                    <span>{{ msg.sender }}: {{ msg.message }}</span>
+                </div>
+            </div>
+        </mat-list>
+        <mat-list>
+            <div *ngFor="let msg of storageMessages" class="message-wrapper">
+                <div *ngIf="msg.sender?.username === username" class="message-content sent">
+                    <span>{{ msg.sender?.username }}: {{ msg.content }}</span>
+                </div>
+                <div *ngIf="msg.sender?.username !== username" class="message-content received">
+                    <span>{{ msg.sender?.username }}: {{ msg.content }}</span>
+                </div>
+            </div>
+        </mat-list>
+    </div>
+    <div id="input-container">
+        <mat-form-field appearance="outline">
+            <mat-label>Buscar por usuários no chat</mat-label>
+            <input matInput [(ngModel)]="message" placeholder="Digite sua mensagem...">
+            <mat-icon matSuffix (click)="toogleShowEmoji()" id="emoji">tag_faces</mat-icon>
+            <mat-icon matSuffix (click)="sendMessage()" id="send">send</mat-icon>
+        </mat-form-field>
+        <emoji-mart *ngIf="showContainerEmoji" (emojiSelect)="addEmoji($event)"
+            [style]="{ position: 'absolute', bottom: '150px', right: '20px', zIndex: 100 }"></emoji-mart>
+    </div>
+</main>

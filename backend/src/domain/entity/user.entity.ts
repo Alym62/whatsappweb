@@ -13,6 +13,9 @@ export class User {
     @Column()
     password: string;
 
+    @Column()
+    numberPhone: string;
+
     @OneToMany(() => Message, (message) => message.sender)
     messages: Message[];
 

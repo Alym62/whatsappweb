@@ -8,13 +8,18 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { AuthService } from '../core/services/auth.service';
+import { SocketService } from '../core/services/socket.service';
 import { UserService } from '../core/services/user.service';
 import { SharedModule } from '../shared/shared.module';
+import { ChatComponent } from './components/chat/chat.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -24,8 +29,9 @@ import { RegisterComponent } from './components/register/register.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    ChatComponent,
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, SocketService],
   imports: [
     CommonModule,
     BrowserAnimationsModule,
@@ -41,7 +47,10 @@ import { RegisterComponent } from './components/register/register.component';
     MatToolbarModule,
     MatAutocompleteModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    PickerModule
   ],
   exports: [LoginComponent]
 })

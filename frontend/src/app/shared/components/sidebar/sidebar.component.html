@@ -5,10 +5,10 @@
             <mat-icon>chat</mat-icon>
         </h1>
     </div>
-    <ul>
-        <li *ngFor="let user of usernameStr">
+    <ul *ngFor="let conversation of conversations">
+        <li *ngFor="let user of conversation.participants">
             <mat-icon>person</mat-icon>
-            {{ user.username }}
+            <button mat-button (click)="onConversationClick(conversation.id)">{{ user.username.toUpperCase() }}</button>
         </li>
     </ul>
     <div class="pop-up">
@@ -20,6 +20,11 @@
             </h2>
             <span>Uma nova avaliação foi lançada!</span>
             <button>Atualizar</button>
+            <button id="logout" mat-button (click)="logout()">
+                Sair
+                <mat-icon>logout</mat-icon>
+            </button>
         </div>
     </div>
+
 </mat-drawer-container>

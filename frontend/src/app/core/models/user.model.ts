@@ -1,5 +1,6 @@
 export interface UserModel {
-    id?: number,
+    id: number,
     username: string,
     password: string,
+    numberPhone: string,
 }

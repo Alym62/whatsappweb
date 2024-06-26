@@ -59,4 +59,8 @@ export class ChatService {
     async getMessages(conversationId: number): Promise<Message[]> {
         return this.messageService.fetchAllByConversation(conversationId);
     }
+
+    async fetchMessagesByConversationId(conversationId: number): Promise<Message[]> {
+        return this.messageService.getMessagesByConversationId(conversationId);
+    }
 }

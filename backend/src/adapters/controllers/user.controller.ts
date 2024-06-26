@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Query, Req, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Logger, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { UserService } from "src/application/services/user.service";
 import { User } from "src/domain/entity/user.entity";
@@ -10,6 +10,11 @@ export class UserController {
     constructor(
         private readonly userService: UserService,
     ) { }
+
+    @Post()
+    async register(@Body() user: User): Promise<User> {
+        return this.userService.registerUser(user);
+    }
 
     @Get()
     @UseGuards(AuthGuard('jwt'))

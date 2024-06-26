@@ -6,7 +6,8 @@
             <input matInput [formControl]="filterControl" [matAutocomplete]="auto">
             <mat-icon matSuffix>person</mat-icon>
             <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let user of users" [value]="user.username">
+                <mat-option *ngFor="let user of users" [value]="user.username"
+                    (click)="openConversation(user.username)">
                     {{ user.username }}
                 </mat-option>
             </mat-autocomplete>

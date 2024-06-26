@@ -45,4 +45,14 @@ export class ConversationService {
             .where('user.id = :userId', { userId })
             .getMany();
     }
+
+    async fetchConversationWithMessages(userId: number): Promise<Conversation[]> {
+        return this.conversationRepository
+            .createQueryBuilder('conversation')
+            .leftJoinAndSelect('conversation.participants', 'participant')
+            .leftJoinAndSelect('conversation.messages', 'message')
+            .leftJoinAndSelect('message.sender', 'sender')
+            .where('participant.id = :userId', { userId })
+            .getMany();
+    }
 }

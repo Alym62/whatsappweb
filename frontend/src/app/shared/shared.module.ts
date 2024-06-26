@@ -5,6 +5,7 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { AuthService } from '../core/services/auth.service';
 import { ConversationService } from '../core/services/conversation.service';
 import { HeaderComponent } from './components/header/header.component';
 import { ModalComponent } from './components/modal/modal.component';
@@ -20,7 +21,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     MatDialogModule,
     MatButtonModule
   ],
-  providers: [ConversationService],
+  providers: [ConversationService, AuthService],
   exports: [HeaderComponent, SidebarComponent]
 })
 export class SharedModule { }

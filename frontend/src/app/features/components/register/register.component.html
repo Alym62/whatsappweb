@@ -27,6 +27,13 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
+                    <mat-label>Número de telefone</mat-label>
+                    <input matInput type="text" [(ngModel)]="userModel.numberPhone" name="numberPhone" required
+                        placeholder="Digite seu telefone...">
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" [(ngModel)]="userModel.password" name="password" required
                         placeholder="Digite sua senha...">
