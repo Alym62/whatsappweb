@@ -3,7 +3,7 @@
 
 Esse é um projeto de um web sockets desenvolvido com NestJs utilizando as seguintes ferramentas:
 - <a href="https://nestjs.com">***NestJs***</a>
-- <a href="https://typeorm.io">***TypeORM***></a>
+- <a href="https://typeorm.io">***TypeORM***</a>
 - <a href="https://www.docker.com">***Docker***</a>
 - <a href="https://www.typescriptlang.org">***Typescript***</a>
 - <a href="https://angular.dev">***Angular***</a>
