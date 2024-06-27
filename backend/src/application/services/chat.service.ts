@@ -1,13 +1,11 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
 import { Server } from 'socket.io';
 import { SocketIo } from "src/adapters/implementations/chat.socket-io";
 import { ChatAdapter } from "src/adapters/use-cases/socket/chat.adapter";
 import { Message } from "src/domain/entity/message.entity";
-import { User } from "src/domain/entity/user.entity";
-import { Repository } from "typeorm";
 import { ConversationService } from "./conversation.service";
 import { MessageService } from "./message.service";
+import { UserService } from "./user.service";
 
 @Injectable()
 export class ChatService {
@@ -15,8 +13,7 @@ export class ChatService {
     private chatAdapter: ChatAdapter;
 
     constructor(
-        @InjectRepository(User)
-        private readonly userRepository: Repository<User>,
+        private readonly userService: UserService,
         private readonly messageService: MessageService,
         private readonly conversationService: ConversationService,
     ) { }
@@ -38,7 +35,7 @@ export class ChatService {
     }
 
     async sendMessage(senderUsername: string, conversationId: number, messageContent: string): Promise<void> {
-        const sender = await this.userRepository.findOne({ where: { username: senderUsername } });
+        const sender = await this.userService.fetchByUsername(senderUsername);
         const conversation = await this.conversationService.fetchIdConversation(conversationId);
 
         if (sender) {

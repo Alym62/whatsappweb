@@ -1,6 +1,5 @@
 import { Controller, Get, Req, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { ChatService } from "src/application/services/chat.service";
 import { ConversationService } from "src/application/services/conversation.service";
 import { Conversation } from "src/domain/entity/conversation.entity";
 
@@ -8,7 +7,6 @@ import { Conversation } from "src/domain/entity/conversation.entity";
 export class ConversationController {
     constructor(
         private readonly conversationService: ConversationService,
-        private readonly chatService: ChatService,
     ) { }
 
     @Get()
